@@ -26,6 +26,11 @@ class IrcProtocolParserTest < MiniTest::Unit::TestCase
     assert_equal [:raw, '353', 'hitchcock.freenode.net', 'john', '#bottest', 'john', 'mary', 'gary'], @parser.parse(message)
   end
 
+  def test_parse_end_of_names_list
+    message = ":leguin.freenode.net 366 john #bottest :End of /NAMES list."
+    assert_equal [:raw, "366", "leguin.freenode.net", "john", "#bottest", "End of /NAMES list."], @parser.parse(message)
+  end
+
   def test_parse_mode_setting
     message = ':john MODE mary :+i'
     assert_equal [:mode, 'john', 'mary', '+i'], @parser.parse(message)
