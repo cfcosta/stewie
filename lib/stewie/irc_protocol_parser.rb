@@ -5,6 +5,9 @@ module Stewie
       when /NICK/
         parsed = message.match(/:(?<old_nick>.*) NICK (?<new_nick>.*)/)
         [:nick, parsed[:old_nick], parsed[:new_nick]]
+      when /JOIN/
+        parsed = message.match(/:(?<nick>.*) JOIN (?<channel>.*)/)
+        [:join, parsed[:nick], parsed[:channel]]
       when /SQUIT/
         parsed = message.match(/:(?<nick>.*) SQUIT (?<host>.*) :(?<message>.*)/)
         [:squit, parsed[:nick], parsed[:host], parsed[:message]]
