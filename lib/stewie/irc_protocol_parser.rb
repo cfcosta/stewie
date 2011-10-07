@@ -11,6 +11,9 @@ module Stewie
       when /SQUIT/
         parsed = message.match(/:(?<nick>.*) SQUIT (?<host>.*) :(?<message>.*)/)
         [:squit, parsed[:nick], parsed[:host], parsed[:message]]
+      when /TOPIC/
+        parsed = message.match(/:(?<nick>.*) TOPIC (?<channel>.*) :(?<message>.*)/)
+        [:topic, parsed[:nick], parsed[:channel], parsed[:message]]
       when /USER/
         parsed = message.match(/:(?<nick>.*) USER (?<username>.*) (?<hostname>.*) (?<servername>.*) :(?<realname>.*)/)
         [:user, parsed[:nick], parsed[:username], parsed[:hostname], parsed[:servername], parsed[:realname]]
