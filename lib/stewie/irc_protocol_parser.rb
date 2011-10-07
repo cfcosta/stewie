@@ -14,6 +14,9 @@ module Stewie
       when /TOPIC/
         parsed = message.match(/:(?<nick>.*) TOPIC (?<channel>.*) :(?<message>.*)/)
         [:topic, parsed[:nick], parsed[:channel], parsed[:message]]
+      when /INVITE/
+        parsed = message.match(/:(?<inviter>.*) INVITE (?<invited>.*) (?<channel>.*)/)
+        [:invite, parsed[:inviter], parsed[:invited], parsed[:channel]]
       when /USER/
         parsed = message.match(/:(?<nick>.*) USER (?<username>.*) (?<hostname>.*) (?<servername>.*) :(?<realname>.*)/)
         [:user, parsed[:nick], parsed[:username], parsed[:hostname], parsed[:servername], parsed[:realname]]
