@@ -20,6 +20,9 @@ module Stewie
       when /KICK/
         parsed = message.match(/:(?<kicker>.*) KICK (?<channel>.*) (?<kicked>.*)/)
         [:kick, parsed[:kicker], parsed[:channel], parsed[:kicked]]
+      when /PRIVMSG/
+        parsed = message.match(/:(?<caller>.*) PRIVMSG (?<receiver>.*) :(?<message>.*)/)
+        [:privmsg, parsed[:caller], parsed[:receiver], parsed[:message]]
       when /USER/
         parsed = message.match(/:(?<nick>.*) USER (?<username>.*) (?<hostname>.*) (?<servername>.*) :(?<realname>.*)/)
         [:user, parsed[:nick], parsed[:username], parsed[:hostname], parsed[:servername], parsed[:realname]]

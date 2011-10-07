@@ -35,6 +35,11 @@ class IrcProtocolParserTest < MiniTest::Unit::TestCase
     assert_equal [:kick, 'WiZ', '#Finnish', 'John'], @protocol.parse(message)
   end
 
+  def test_parse_private_message
+    message = ':Angel PRIVMSG Wiz :You there?'
+    assert_equal [:privmsg, 'Angel', 'Wiz', 'You there?'], @protocol.parse(message)
+  end
+
   def test_parse_channel_server_quit
     message = ':Trillian SQUIT localhost :Bye!'
     assert_equal [:squit, 'Trillian', 'localhost', 'Bye!'], @protocol.parse(message)
