@@ -36,8 +36,11 @@ module Stewie
         parsed = message.match(/:(?<inviter>.*) INVITE (?<invited>.*) (?<channel>.*)/)
         [:invite, parsed[:inviter], parsed[:invited], parsed[:channel]]
       when /KICK/
-        parsed = message.match(/:(?<kicker>.*) KICK (?<channel>.*) (?<kicked>.*)/)
-        [:kick, parsed[:kicker], parsed[:channel], parsed[:kicked]]
+        if parsed = message.match(/:(?<kicker>.*)!(?<host>.*) KICK (?<channel>.*?) (?<kicked>.*?) :(?<reason>.*)/)
+          [:kick, parsed[:kicker], parsed[:host], parsed[:channel], parsed[:kicked], parsed[:reason]]
+        elsif parsed = message.match(/:(?<kicker>.*)!(?<host>.*) KICK (?<channel>.*) (?<kicked>.*)$/)
+          [:kick, parsed[:kicker], parsed[:host], parsed[:channel], parsed[:kicked]]
+        end
       when /PRIVMSG/
         parsed = message.match(/:(?<caller>.*)!(?<host>.*) PRIVMSG (?<receiver>.*?) :(?<message>.*)/)
         [:privmsg, parsed[:caller], parsed[:host], parsed[:receiver], parsed[:message]]

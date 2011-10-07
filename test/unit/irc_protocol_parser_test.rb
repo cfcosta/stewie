@@ -56,8 +56,13 @@ class IrcProtocolParserTest < MiniTest::Unit::TestCase
   end
 
   def test_parse_channel_kick
-    message = ':WiZ KICK #Finnish John'
-    assert_equal [:kick, 'WiZ', '#Finnish', 'John'], @parser.parse(message)
+    message = ':WiZ!~WiZ@unaffiliated/wiz KICK #Finnish John'
+    assert_equal [:kick, 'WiZ', '~WiZ@unaffiliated/wiz', '#Finnish', 'John'], @parser.parse(message)
+  end
+
+  def test_parse_channel_kick_with_message
+    message = ':WiZ!~WiZ@unaffiliated/wiz KICK #Finnish John :kick message'
+    assert_equal [:kick, 'WiZ', '~WiZ@unaffiliated/wiz', '#Finnish', 'John', 'kick message'], @parser.parse(message)
   end
 
   def test_parse_private_message
@@ -84,4 +89,7 @@ class IrcProtocolParserTest < MiniTest::Unit::TestCase
     message = ':Trillian SQUIT localhost :Bye!'
     assert_equal [:squit, 'Trillian', 'localhost', 'Bye!'], @parser.parse(message)
   end
+
+  ":sendak.freenode.net MODE #moarbottest +ns"
+  ":sendak.freenode.net 353 stewiebot @ #moarbottest :@stewiebot"
 end
