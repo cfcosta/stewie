@@ -65,6 +65,11 @@ class IrcProtocolParserTest < MiniTest::Unit::TestCase
     assert_equal [:privmsg, 'Angel', 'Wiz', 'You there?'], @parser.parse(message)
   end
 
+  def test_parse_private_message_with_colons
+    message = ':Angel PRIVMSG Wiz :You there? :3'
+    assert_equal [:privmsg, 'Angel', 'Wiz', 'You there? :3'], @parser.parse(message)
+  end
+
   def test_parse_notice
     message = ":barjavel.freenode.net NOTICE * :*** Checking Ident"
     assert_equal [:notice, 'barjavel.freenode.net', '*', '*** Checking Ident'], @parser.parse(message)
