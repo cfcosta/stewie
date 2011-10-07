@@ -39,8 +39,8 @@ module Stewie
         parsed = message.match(/:(?<kicker>.*) KICK (?<channel>.*) (?<kicked>.*)/)
         [:kick, parsed[:kicker], parsed[:channel], parsed[:kicked]]
       when /PRIVMSG/
-        parsed = message.match(/:(?<caller>.*) PRIVMSG (?<receiver>.*?) :(?<message>.*)/)
-        [:privmsg, parsed[:caller], parsed[:receiver], parsed[:message]]
+        parsed = message.match(/:(?<caller>.*)!(?<host>.*) PRIVMSG (?<receiver>.*?) :(?<message>.*)/)
+        [:privmsg, parsed[:caller], parsed[:host], parsed[:receiver], parsed[:message]]
       when /NOTICE/
         parsed = message.match(/:(?<caller>.*) NOTICE (?<receiver>.*) :(?<message>.*)/)
         [:notice, parsed[:caller], parsed[:receiver], parsed[:message]]

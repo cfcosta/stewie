@@ -61,13 +61,13 @@ class IrcProtocolParserTest < MiniTest::Unit::TestCase
   end
 
   def test_parse_private_message
-    message = ':Angel PRIVMSG Wiz :You there?'
-    assert_equal [:privmsg, 'Angel', 'Wiz', 'You there?'], @parser.parse(message)
+    message = ':Angel!~angel@unaffiliated/angel PRIVMSG Wiz :You there?'
+    assert_equal [:privmsg, 'Angel', '~angel@unaffiliated/angel', 'Wiz', 'You there?'], @parser.parse(message)
   end
 
   def test_parse_private_message_with_colons
-    message = ':Angel PRIVMSG Wiz :You there? :3'
-    assert_equal [:privmsg, 'Angel', 'Wiz', 'You there? :3'], @parser.parse(message)
+    message = ':Angel!~angel@unaffiliated/angel PRIVMSG Wiz :You there? :3'
+    assert_equal [:privmsg, 'Angel', '~angel@unaffiliated/angel', 'Wiz', 'You there? :3'], @parser.parse(message)
   end
 
   def test_parse_notice
