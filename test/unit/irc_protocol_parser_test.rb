@@ -60,6 +60,11 @@ class IrcProtocolParserTest < MiniTest::Unit::TestCase
     assert_equal [:notice, 'barjavel.freenode.net', '*', '*** Checking Ident'], @parser.parse(message)
   end
 
+  def test_parse_channel_quit
+    message = ':john!~john@unaffiliated/john PART #bottest'
+    assert_equal [:part, 'john', '~john@unaffiliated/john', '#bottest'], @parser.parse(message)
+  end
+
   def test_parse_channel_server_quit
     message = ':Trillian SQUIT localhost :Bye!'
     assert_equal [:squit, 'Trillian', 'localhost', 'Bye!'], @parser.parse(message)
