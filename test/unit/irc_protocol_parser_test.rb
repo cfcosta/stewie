@@ -1,4 +1,5 @@
 require 'test_helper'
+require 'stewie/irc_protocol_parser.rb'
 
 class IrcProtocolParserTest < MiniTest::Unit::TestCase
   def setup
@@ -6,7 +7,7 @@ class IrcProtocolParserTest < MiniTest::Unit::TestCase
   end
 
   def test_parse_user_connection
-    message = "USER guest tolmoon tolsun :Ronnie Reagan"
+    message = "USER guest tolmoon toolsun :Ronnie Reagan"
     assert_equal [:user, 'guest', 'tolmoon', 'toolsun', 'Ronnie Reagan'], @protocol.parse(message)
   end
 
