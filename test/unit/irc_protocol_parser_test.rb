@@ -7,8 +7,8 @@ class IrcProtocolParserTest < MiniTest::Unit::TestCase
   end
 
   def test_parse_user_connection
-    message = "USER guest tolmoon toolsun :Ronnie Reagan"
-    assert_equal [:user, 'guest', 'tolmoon', 'toolsun', 'Ronnie Reagan'], @protocol.parse(message)
+    message = ":ronnie USER guest tolmoon toolsun :Ronnie Reagan"
+    assert_equal [:user, 'ronnie', 'guest', 'tolmoon', 'toolsun', 'Ronnie Reagan'], @protocol.parse(message)
   end
 
   def test_parse_channel_nick_change
