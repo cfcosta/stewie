@@ -11,6 +11,11 @@ class IrcProtocolParserTest < MiniTest::Unit::TestCase
     assert_equal [:user, 'ronnie', 'guest', 'tolmoon', 'toolsun', 'Ronnie Reagan'], @protocol.parse(message)
   end
 
+  def test_parse_ping
+    message = 'PING :WiZ'
+    assert_equal [:ping, 'WiZ'], @protocol.parse(message)
+  end
+
   def test_parse_channel_join
     message = ':WiZ JOIN #Twilight_zone'
     assert_equal [:join, 'WiZ', '#Twilight_zone'], @protocol.parse(message)

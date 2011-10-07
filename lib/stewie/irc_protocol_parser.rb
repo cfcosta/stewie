@@ -2,6 +2,9 @@ module Stewie
   class IrcProtocolParser
     def parse(message)
       case message
+      when /PING/
+        parsed = message.match(/PING :(?<from>.*)/)
+        [:ping, parsed[:from]]
       when /NICK/
         parsed = message.match(/:(?<old_nick>.*) NICK (?<new_nick>.*)/)
         [:nick, parsed[:old_nick], parsed[:new_nick]]
