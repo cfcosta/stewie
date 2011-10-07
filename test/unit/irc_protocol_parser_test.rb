@@ -21,6 +21,11 @@ class IrcProtocolParserTest < MiniTest::Unit::TestCase
     assert_equal [:raw, '376', 'sendak.freenode.net', 'john', 'End of /MOTD command.'], @parser.parse(message)
   end
 
+  def test_parse_raw_channel_list
+    message = ":hitchcock.freenode.net 353 john = #bottest :john mary gary"
+    assert_equal [:raw, '353', 'hitchcock.freenode.net', 'john', '#bottest', 'john', 'mary', 'gary'], @parser.parse(message)
+  end
+
   def test_parse_mode_setting
     message = ':john MODE mary :+i'
     assert_equal [:mode, 'john', 'mary', '+i'], @parser.parse(message)
