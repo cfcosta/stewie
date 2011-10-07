@@ -1,5 +1,5 @@
 require 'test_helper'
-require 'stewie/irc_protocol_parser.rb'
+require 'stewie/irc_protocol_parser'
 
 class IrcProtocolParserTest < MiniTest::Unit::TestCase
   def setup
