@@ -2,6 +2,9 @@ module Stewie
   class IrcProtocolParser
     def parse(message)
       case message
+      when /:.* \d{3} .* :.*/
+        parsed = message.match(/:(?<sender>.*) (?<code>\d{3}) (?<target>.*) :(?<message>.*)/)
+        [:raw, parsed[:code], parsed[:sender], parsed[:target], parsed[:message]]
       when /PING/
         parsed = message.match(/PING :(?<from>.*)/)
         [:ping, parsed[:from]]
