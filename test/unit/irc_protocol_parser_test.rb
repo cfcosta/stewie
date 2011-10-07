@@ -17,8 +17,8 @@ class IrcProtocolParserTest < MiniTest::Unit::TestCase
   end
 
   def test_parse_channel_join
-    message = ':WiZ JOIN #Twilight_zone'
-    assert_equal [:join, 'WiZ', '#Twilight_zone'], @parser.parse(message)
+    message = ':john!~john@unaffiliated/john JOIN #Twilight_zone'
+    assert_equal [:join, 'john', '~john@unaffiliated/john', '#Twilight_zone'], @parser.parse(message)
   end
 
   def test_parse_channel_nick_change
