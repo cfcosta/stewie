@@ -18,7 +18,7 @@ module Stewie
         parsed = message.match(/PING :(?<from>.*)/)
         [:ping, parsed[:from]]
       when /MODE/
-        parsed = message.match(/:(?<from>.*) MODE (?<to>.*) :(?<mode>.*)/)
+        parsed = message.match(/:(?<from>.*) MODE (?<to>.*) :?(?<mode>.*)/)
         [:mode, parsed[:from], parsed[:to], parsed[:mode]]
       when /NICK/
         parsed = message.match(/:(?<old_nick>.*) NICK (?<new_nick>.*)/)

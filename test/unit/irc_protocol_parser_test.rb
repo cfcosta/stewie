@@ -36,6 +36,11 @@ class IrcProtocolParserTest < MiniTest::Unit::TestCase
     assert_equal [:mode, 'john', 'mary', '+i'], @parser.parse(message)
   end
 
+  def test_parse_mode_setting_without_colon
+    message = ':sendak.freenode.net MODE #moarbottest +ns'
+    assert_equal [:mode, 'sendak.freenode.net', '#moarbottest', '+ns'], @parser.parse(message)
+  end
+
   def test_parse_channel_join
     message = ':john!~john@unaffiliated/john JOIN #Twilight_zone'
     assert_equal [:join, 'john', '~john@unaffiliated/john', '#Twilight_zone'], @parser.parse(message)
@@ -94,7 +99,4 @@ class IrcProtocolParserTest < MiniTest::Unit::TestCase
     message = ':Trillian SQUIT localhost :Bye!'
     assert_equal [:squit, 'Trillian', 'localhost', 'Bye!'], @parser.parse(message)
   end
-
-  ":sendak.freenode.net MODE #moarbottest +ns"
-  ":sendak.freenode.net 353 stewiebot @ #moarbottest :@stewiebot"
 end
