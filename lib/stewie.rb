@@ -3,6 +3,10 @@ module Stewie
   autoload :IrcProtocolParser, 'stewie/irc_protocol_parser'
 
   class << self
+    def configure
+      yield self
+    end
+
     def mattr_acessor(name)
       class_eval "def self.#{name}; @@#{name} ||= nil ; end"
       class_eval "def self.#{name}=(value); @@#{name} = value ; end"

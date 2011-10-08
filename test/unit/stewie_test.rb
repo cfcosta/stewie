@@ -10,6 +10,10 @@ class StewieTest < MiniTest::Unit::TestCase
     what.send(:"#{acessor}=", old_value)
   end
 
+  def test_configure
+    Stewie.configure { |config| assert_equal config, Stewie }
+  end
+
   def test_set_the_server
     swap(Stewie, :server, 'irc.freenode.org') { assert_equal 'irc.freenode.org', Stewie.server  }
   end
