@@ -2,6 +2,9 @@ module Stewie
   class IrcProtocolParser
     def parse(message)
       case message
+      when /PRIVMSG/
+        parsed = message.match(/:(?<caller>.*)!(?<host>.*) PRIVMSG (?<receiver>.*?) :(?<message>.*)/)
+        [:privmsg, parsed[:caller], parsed[:host], parsed[:receiver], parsed[:message]]
       when /:.* 353 .* :.*/
         parsed = message.match(/:(?<sender>.*) 353 (?<target>.*) = (?<channel>.*) :(?<nicks>.*)/)
         [:raw, '353', parsed[:sender], parsed[:target], parsed[:channel]] + parsed[:nicks].split(' ')
@@ -41,9 +44,6 @@ module Stewie
         elsif parsed = message.match(/:(?<kicker>.*)!(?<host>.*) KICK (?<channel>.*) (?<kicked>.*)$/)
           [:kick, parsed[:kicker], parsed[:host], parsed[:channel], parsed[:kicked]]
         end
-      when /PRIVMSG/
-        parsed = message.match(/:(?<caller>.*)!(?<host>.*) PRIVMSG (?<receiver>.*?) :(?<message>.*)/)
-        [:privmsg, parsed[:caller], parsed[:host], parsed[:receiver], parsed[:message]]
       when /NOTICE/
         parsed = message.match(/:(?<caller>.*) NOTICE (?<receiver>.*) :(?<message>.*)/)
         [:notice, parsed[:caller], parsed[:receiver], parsed[:message]]
